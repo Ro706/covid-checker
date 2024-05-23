@@ -1,105 +1,78 @@
-#python 3.7.1
-
-# corona is a dangerous disease, we must adhere
-# this is a simple task code 
-# which is to enter yes or no to some questions 
-# about the symptoms of this virus
-# and the code will give you the results in order.
-# enjoy (:
 import time
-re = 1
-while re:
-  def ans():
-    ansy = "yes","Yes","yEs","yES","YeS","yeS","1","YES"
-    ansn = "no","No","nO","2","NO"
-    print("~"*45)
-    name = input("Enter Your Name ")
-    print("~"*45)
-    print("Welcome "+name)
-    print("")
-    time.sleep(0.5)
-    print("I'am Advance Coronavirus Program\nbuild with python")
-    print("")
-    time.sleep(0.5)
-    live = input("Where are you living? ")
-    time.sleep(0.5)
-    print("")
-    print("What is the number of infected \npeople in " +live+"?")
-    print("")
-    print("1 = Less than 1000\n2 = Above 1000\n3 = Higher than 10,000\n4 = Wide spread")
-    case = input("Select Number : ")
-    print("")
-    if case == "1":
-      print("You should wear a mask when going out\nkeep a distance with people\nand also wash your hands well\nafter touching surfaces")
-      print("and,Do not touch your face\nuntil you wash your hands ")
-    elif case == "2":
-      print("Adhere to the health\nconditions to avoid infection\nto avoid the spread of the epidemic\nin a larger scale")
-      print("And try not to go out to absolutely necessary")
-    elif case == "3":
-      print("Try to stay away from the elderly\ntake the necessary precautions and \ntreat everyone around you as infected so \nthat you can resist this pandemic")
-    elif case == "4":
-      print("Stay at home, and if any of the symptoms\nappear on you\nget a check-up as\nsoon as possible")
-    else:
-      print("Wrong Input")
-    print("")
-    time.sleep(1)
-    print("Now, I will ask you some questions\nto know your condition")
-    print("yes or no")
-    print("")
-    time.sleep(1)
-    q1 = input("Do you suffer from a headache? ")
-    time.sleep(0.5)
-    q2 = input("Are you having a fever? ")
-    time.sleep(0.5)
-    q3 = input("Do you have a dry cough / sneeze? ")
-    time.sleep(0.5)
-    q4 = input("Do you have a sore throat? ")
-    print("")
-    print("If you find the results have completed at\nleast 30%, take a Covid 19 test")
-    print("")
-    time.sleep(1)
-    q5 = input("Finally,Do you have all the \nsymptoms I mentioned earlier? ")
-    print("")
-    time.sleep(0.5)
-    if q1 in ansy:
-      print("Q1 : Result / Risk : 10%")
-    elif q1 in ansn:
-      print("Q1 : No Risk")
-    else:
-      print("Wrong Input")
-    time.sleep(0.5)
-    if q2 in ansy:
-      print("Q2 : Result / Risk : 20%")
-    elif q2 in ansn:
-      print("Q2 : No Risk")
-    else:
-      print("Wrong Input")
-    time.sleep(0.5)
-    if q3 in ansy:
-      print("Q3 : Result / Risk : 40%")
-    elif q3 in ansn:
-      print("Q3 : No Risk")
-    else:
-      print("Wrong Input")
-    time.sleep(0.5)
-    if q4 in ansy:
-      print("Q4 : Result / Risk : 30%")
-    elif q4 in ansn:
-      print("Q4 : No Risk")
-    else:
-      print("Wrong Input")
-    time.sleep(0.5)
-    print("")
-    if q5 in ansy:
-      print("Go to the hospital as soon as\npossible for a Covid 19 test\nas per your entries")
-    elif q5 in ansn:
-      print("Q5 : Good")
-    else:
-      print("Wrong Input")    
-    print("")
-  ans()
-  re = int(input("Enter 1 to Restart Programe or 0 To Stop it "))
-print("")
-print("Thank You For Using This Program")
-print("If You Like It Leave Star Please (:")
-# end
+
+def get_user_input(prompt, valid_responses):
+    response = input(prompt).strip().lower()
+    while response not in valid_responses:
+        print("Invalid input. Please try again.")
+        response = input(prompt).strip().lower()
+    return response
+
+def provide_guidelines(case):
+    guidelines = {
+        "1": "You should wear a mask when going out, keep a distance with people, and wash your hands well after touching surfaces. Do not touch your face until you wash your hands.",
+        "2": "Adhere to the health conditions to avoid infection and avoid the spread of the epidemic on a larger scale. Try not to go out unless absolutely necessary.",
+        "3": "Try to stay away from the elderly. Take necessary precautions and treat everyone around you as potentially infected to resist this pandemic.",
+        "4": "Stay at home, and if any symptoms appear, get a check-up as soon as possible."
+    }
+    print(guidelines.get(case, "Wrong Input"))
+
+def assess_symptoms():
+    symptoms = {
+        "Do you suffer from a headache? ": 10,
+        "Are you having a fever? ": 20,
+        "Do you have a dry cough / sneeze? ": 40,
+        "Do you have a sore throat? ": 30
+    }
+
+    total_risk = 0
+    for question, risk in symptoms.items():
+        response = get_user_input(question, ['yes', 'no', '1', '2'])
+        if response in ['yes', '1']:
+            print(f"Q: Result / Risk: {risk}%")
+            total_risk += risk
+        else:
+            print("Q: No Risk")
+        time.sleep(0.5)
+
+    print(f"\nTotal risk based on your symptoms: {total_risk}%")
+    if total_risk >= 30:
+        print("Take a Covid-19 test as soon as possible.")
+
+def main():
+    print("********GIVE STAR ONLY IF YOU LIKE********")
+    print()
+    while True:
+        print("~" * 45)
+        name = input("Enter Your Name: ")
+        print("~" * 45)
+        print(f"Welcome {name}\n")
+        time.sleep(0.5)
+        print("I'm an Advanced Coronavirus Program built with Python\n")
+        time.sleep(0.5)
+        location = input("Where are you living? ")
+        time.sleep(0.5)
+        print(f"\nWhat is the number of infected people in {location}?")
+        print("\n1 = Less than 1000\n2 = Above 1000\n3 = Higher than 10,000\n4 = Widespread")
+        case = get_user_input("Select Number: ", ['1', '2', '3', '4'])
+        provide_guidelines(case)
+
+        print("\nNow, I will ask you some questions to know your condition")
+        print("Please answer with 'yes' or 'no'\n")
+        time.sleep(1)
+        assess_symptoms()
+
+        response = get_user_input("\nFinally, do you have all the symptoms I mentioned earlier? (yes or no) ", ['yes', 'no', '1', '2'])
+        if response in ['yes', '1']:
+            print("Go to the hospital as soon as possible for a Covid-19 test as per your entries.")
+        else:
+            print("Q5: Good")
+
+        re = get_user_input("Enter 1 to restart the program or 0 to stop it: ", ['1', '0'])
+        if re == '0':
+            break
+
+    print("\nThank you for using this program.")
+    print("If you like it, please leave a star (:")
+    
+if __name__ == "__main__":
+    main()
